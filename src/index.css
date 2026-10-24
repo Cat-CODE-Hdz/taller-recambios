@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,600;0,700;1,600;1,700&family=Work+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  /* Colors — design system Taller Recambios */
+  --color-surface: #f8f9ff;
+  --color-surface-dim: #d7dae1;
+  --color-surface-bright: #f8f9ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f1f4fb;
+  --color-surface-container: #ebeef5;
+  --color-surface-container-high: #e5e8ef;
+  --color-surface-container-highest: #e0e2e9;
+  --color-on-surface: #181c21;
+  --color-on-surface-variant: #59413a;
+  --color-inverse-surface: #2d3136;
+  --color-inverse-on-surface: #eef1f8;
+  --color-outline: #8d7168;
+  --color-outline-variant: #e1bfb5;
+  --color-surface-tint: #ac3400;
+  --color-primary: #9b2f00;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #c2410c;
+  --color-on-primary-container: #ffece7;
+  --color-inverse-primary: #ffb59d;
+  --color-secondary: #345f99;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #94bdfd;
+  --color-on-secondary-container: #1c4c84;
+  --color-tertiary: #515659;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #696e71;
+  --color-on-tertiary-container: #edf1f5;
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-primary-fixed: #ffdbd0;
+  --color-primary-fixed-dim: #ffb59d;
+  --color-on-primary-fixed: #390c00;
+  --color-on-primary-fixed-variant: #832600;
+  --color-secondary-fixed: #d5e3ff;
+  --color-secondary-fixed-dim: #a6c8ff;
+  --color-on-secondary-fixed: #001c3b;
+  --color-on-secondary-fixed-variant: #16477f;
+  --color-tertiary-fixed: #dfe3e7;
+  --color-tertiary-fixed-dim: #c3c7cb;
+  --color-on-tertiary-fixed: #171c1f;
+  --color-on-tertiary-fixed-variant: #43474b;
+  --color-background: #f8f9ff;
+  --color-on-background: #181c21;
+  --color-surface-variant: #e0e2e9;
+
+  /* Typography families */
+  --font-display-lg: 'Archivo Narrow', sans-serif;
+  --font-display-lg-mobile: 'Archivo Narrow', sans-serif;
+  --font-headline-lg: 'Archivo Narrow', sans-serif;
+  --font-headline-lg-mobile: 'Archivo Narrow', sans-serif;
+  --font-headline-md: 'Archivo Narrow', sans-serif;
+  --font-headline-sm: 'Archivo Narrow', sans-serif;
+  --font-price-callout: 'Archivo Narrow', sans-serif;
+  --font-label-md: 'Archivo Narrow', sans-serif;
+  --font-label-sm: 'Archivo Narrow', sans-serif;
+  --font-badge-technical: 'Archivo Narrow', sans-serif;
+  --font-body-lg: 'Work Sans', sans-serif;
+  --font-body-md: 'Work Sans', sans-serif;
+  --font-body-sm: 'Work Sans', sans-serif;
+
+  /* Typography sizes */
+  --text-display-lg: 48px;
+  --text-display-lg--line-height: 52px;
+  --text-display-lg--font-weight: 700;
+  --text-display-lg-mobile: 36px;
+  --text-display-lg-mobile--line-height: 40px;
+  --text-display-lg-mobile--font-weight: 700;
+  --text-headline-lg: 32px;
+  --text-headline-lg--line-height: 36px;
+  --text-headline-lg--font-weight: 700;
+  --text-headline-lg-mobile: 26px;
+  --text-headline-lg-mobile--line-height: 30px;
+  --text-headline-lg-mobile--font-weight: 700;
+  --text-headline-md: 24px;
+  --text-headline-md--line-height: 28px;
+  --text-headline-md--font-weight: 600;
+  --text-headline-sm: 20px;
+  --text-headline-sm--line-height: 24px;
+  --text-headline-sm--font-weight: 600;
+  --text-price-callout: 28px;
+  --text-price-callout--line-height: 32px;
+  --text-price-callout--font-weight: 700;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 26px;
+  --text-body-md: 15px;
+  --text-body-md--line-height: 22px;
+  --text-body-sm: 13px;
+  --text-body-sm--line-height: 18px;
+  --text-label-md: 14px;
+  --text-label-md--line-height: 16px;
+  --text-label-md--font-weight: 600;
+  --text-label-sm: 12px;
+  --text-label-sm--line-height: 14px;
+  --text-label-sm--font-weight: 600;
+  --text-badge-technical: 11px;
+  --text-badge-technical--line-height: 12px;
+  --text-badge-technical--font-weight: 700;
+
+  /* Spacing */
+  --spacing-gutter: 1rem;
+  --spacing-gutter-desktop: 1.5rem;
+  --spacing-margin: 1rem;
+  --spacing-margin-tablet: 2rem;
+  --spacing-margin-desktop: 3rem;
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+
+  /* Radius */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  --radius-full: 0.75rem;
+}
+
+@layer base {
+  html,
+  body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    overscroll-behavior: none;
+    background-color: #f8f9ff;
+    font-family: 'Work Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+}
