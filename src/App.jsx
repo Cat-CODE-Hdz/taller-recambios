@@ -127,7 +127,7 @@ function Header() {
                 </span>
                 {DEMO_MODE && (
                   <span className="font-badge-technical text-badge-technical uppercase tracking-wider text-[#C2410C] border border-[#C2410C]/40 px-1 py-0.5 rounded-lg">
-                    Proyecto demo
+                    Proyecto conceptual
                   </span>
                 )}
               </div>
@@ -292,7 +292,7 @@ function About() {
   const facts = [
     { icon: 'calendar_today', label: 'Trayectoria', value: 'Abierto desde 2019' },
     { icon: 'location_on', label: 'Localización', value: 'Barrio: Feria, Sevilla' },
-    { icon: 'schedule', label: 'Disponibilidad', value: 'Mañanas y tardes' },
+    { icon: 'schedule', label: 'Disponibilidad', value: 'Lun–Vie 10:00–14:00 y 16:30–20:00 · Sáb 10:00–14:00' },
   ]
 
   return (
