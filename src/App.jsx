@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { DEMO_MODE, openWhatsAppOrDemo } from './lib/whatsapp'
 
 const BUSINESS = {
@@ -6,38 +6,33 @@ const BUSINESS = {
   address: 'Calle Feria 118',
   city: '41003 Sevilla',
   phoneDisplay: '954 000 000',
-  phoneHref: 'tel:954000000',
-  mapsUrl: 'https://maps.google.com/?q=Calle+Feria+118+Sevilla',
 }
 
 const WHATSAPP_MSG = 'Hola, quiero presupuesto para mi bici.'
-
-const HERO_IMG =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuAsTlOFDPaBiI7SOKP3zfDYv7ZtQpRVjrzercCOOp9nboPPFeUzvXE-v-0ULp4Et0u3O2HLsJOMtNCuVj5TD33DlYc8mjeZpA76jLCApxDCkUVZc2X6RIUFHIASWBV5WSoBJFK-OfrE-CIRwocBLDWT4ecNn6geL2cgwIp3QL8PY0pJqnS-Ih8RFpZOu0eq01ie6yqyMRokps12XM1GKpVpQHZNEY3YWZdRfCJXzjnZ'
-
-const MAP_IMG =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuDsBI4xe979dfnoWiAWAfZH9SrsqGfvSdAR8H_WOQKJGChgoyJboyn-g5SMiwRkF2RM125AcuR4de1aejZ2wt7FI2fPMzENLT1Ulo1AV7rC-Qa2aLq_EsY4GAjdP5p7U7z5-BQB8Skjcl2DBA9PzxgeRDa8Hpf79RLk3zoq7S82f1nkslSZxPtEY0RbWlAnQvTuiKXta0If2FDHbESlb7Pcnyvr6F1IW1zBPB4XHluv'
 
 const asset = (path) => `${import.meta.env.BASE_URL}${path}`
 const HERO_LOCAL = asset('images/hero/hero-desktop.webp')
 const MAP_LOCAL = asset('images/location/exterior.webp')
 
-function swapOnError(event, fallbackSrc) {
-  const el = event.currentTarget
-  if (el.dataset.fallback !== 'done') {
-    el.dataset.fallback = 'done'
-    el.src = fallbackSrc
-  } else {
-    el.style.display = 'none'
-  }
-}
+const GALLERY_IMAGES = [
+  'galeria-01.webp',
+  'galeria-02.webp',
+  'galeria-03.webp',
+  'galeria-04.webp',
+  'galeria-05.webp',
+  'galeria-06.webp',
+  'galeria-07.webp',
+  'galeria-08.webp',
+  'galeria-09.webp',
+]
 
 const NAV_LINKS = [
   { num: '01.', label: 'Inicio', href: '#inicio' },
   { num: '02.', label: 'Nosotros', href: '#nosotros' },
   { num: '03.', label: 'Servicios', href: '#servicios' },
   { num: '04.', label: 'Garantía', href: '#confianza' },
-  { num: '05.', label: 'Ubicación', href: '#ubicacion' },
+  { num: '05.', label: 'Galería', href: '#galeria' },
+  { num: '06.', label: 'Ubicación', href: '#ubicacion' },
 ]
 
 const SERVICES = [
@@ -69,16 +64,7 @@ const SERVICES = [
     msg: 'Hola, tengo un pinchazo y quiero parche en caliente (25 €).',
   },
   {
-    code: 'SRV-04 · Control',
-    price: '30 €',
-    name: 'Cambio de cable y maneta',
-    note: 'Mountain y carretera.',
-    check: 'Acero inoxidable',
-    aria: 'Consultar Cable y Maneta',
-    msg: 'Hola, necesito Cambio de cable y maneta (30 €) para mi bici.',
-  },
-  {
-    code: 'SRV-05 · Hidráulica',
+    code: 'SRV-04 · Hidráulica',
     price: '35 €',
     name: 'Ajuste de frenos de disco',
     note: 'Incluye bleed.',
@@ -87,7 +73,7 @@ const SERVICES = [
     msg: 'Hola, quiero Ajuste de frenos de disco con bleed (35 €).',
   },
   {
-    code: 'SRV-06 · Ensamblaje',
+    code: 'SRV-05 · Ensamblaje',
     price: '60 €',
     name: 'Montaje de bici completa',
     note: 'A partir de componentes existentes.',
@@ -447,7 +433,6 @@ function Hero({ onContact }) {
                 <img
                   alt="Banco de trabajo del taller con herramientas de precisión"
                   className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
-                  onError={(e) => swapOnError(e, HERO_IMG)}
                   src={HERO_LOCAL}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20 pointer-events-none" />
@@ -708,9 +693,144 @@ function Trust() {
               no hay sorpresas: te decimos qué cuesta antes de empezar, y si el
               trabajo no te convence, lo volvemos a hacer sin discutir.”
             </blockquote>
+            <p className="font-mono-tech text-[11px] uppercase text-[#7A808A] tracking-wider">
+              Personaje de una demo de portafolio de CAT CODE
+            </p>
           </div>
         </div>
       </div>
+    </section>
+  )
+}
+
+function Gallery() {
+  const [active, setActive] = useState(null)
+
+  useEffect(() => {
+    if (active === null) return undefined
+    function handleKey(e) {
+      if (e.key === 'Escape') setActive(null)
+      if (e.key === 'ArrowRight')
+        setActive((v) => (v + 1) % GALLERY_IMAGES.length)
+      if (e.key === 'ArrowLeft')
+        setActive((v) => (v - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length)
+    }
+    window.addEventListener('keydown', handleKey)
+    return () => window.removeEventListener('keydown', handleKey)
+  }, [active])
+
+  const lightbox =
+    active !== null ? (
+      <div
+        aria-label="Fotografía ampliada de la galería"
+        aria-modal="true"
+        className="fixed inset-0 z-[1200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+        onClick={() => setActive(null)}
+        role="dialog"
+      >
+        <div
+          className="relative max-w-4xl w-full"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <img
+            alt={`Fotografía ampliada ${active + 1} del taller`}
+            className="w-full max-h-[80vh] object-contain rounded-lg border border-white/20 shadow-2xl"
+            src={asset(`images/galeria/${GALLERY_IMAGES[active]}`)}
+          />
+          <button
+            aria-label="Cerrar galería ampliada"
+            className="absolute -top-3 -right-3 w-9 h-9 bg-white text-[#1B1F24] hover:bg-[#F2F3F4] rounded-full border border-[#D7DBDF] shadow flex items-center justify-center transition-colors"
+            onClick={() => setActive(null)}
+            type="button"
+          >
+            <span className="material-symbols-outlined text-[20px]">close</span>
+          </button>
+          <button
+            aria-label="Foto anterior"
+            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/95 hover:bg-white text-[#1B1F24] rounded-full border border-[#D7DBDF] shadow flex items-center justify-center transition-colors"
+            onClick={() =>
+              setActive(
+                (v) => (v - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length,
+              )
+            }
+            type="button"
+          >
+            <span className="material-symbols-outlined text-[22px]">
+              chevron_left
+            </span>
+          </button>
+          <button
+            aria-label="Foto siguiente"
+            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/95 hover:bg-white text-[#1B1F24] rounded-full border border-[#D7DBDF] shadow flex items-center justify-center transition-colors"
+            onClick={() => setActive((v) => (v + 1) % GALLERY_IMAGES.length)}
+            type="button"
+          >
+            <span className="material-symbols-outlined text-[22px]">
+              chevron_right
+            </span>
+          </button>
+          <div className="mt-3 flex items-center justify-between font-mono-tech text-[11px] uppercase text-white">
+            <span className="flex items-center gap-1.5">
+              <span className="material-symbols-outlined text-[15px] text-[#FF9E7A]">
+                photo_camera
+              </span>
+              FOTO_{String(active + 1).padStart(2, '0')} · REGISTRO GRÁFICO
+            </span>
+            <span className="text-stone-300">
+              {active + 1} / {GALLERY_IMAGES.length}
+            </span>
+          </div>
+        </div>
+      </div>
+    ) : null
+
+  return (
+    <section
+      className="w-full bg-white py-16 md:py-24 border-b border-[#D7DBDF]"
+      id="galeria"
+    >
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-12">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="font-mono-tech text-xs text-[#C2410C] font-bold uppercase tracking-wider">
+              [SEC-05 // GALERÍA_TALLER]
+            </span>
+            <span className="px-2 py-0.5 bg-[#F2F3F4] border border-[#D7DBDF] text-[#515659] font-mono-tech text-[10px] uppercase rounded font-bold">
+              Registro Gráfico
+            </span>
+          </div>
+          <h2 className="font-display-tech font-bold text-3xl sm:text-4xl md:text-5xl uppercase text-[#1B1F24] tracking-tight">
+            El taller, visto por dentro
+          </h2>
+          <p className="text-[#515659] font-body text-sm md:text-base mt-3 max-w-xl">
+            Pulsa cualquier fotografía para ampliarla y moverte por el registro
+            gráfico del taller.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6">
+          {GALLERY_IMAGES.map((img, i) => (
+            <button
+              aria-label={`Ampliar foto ${i + 1} del taller`}
+              className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-[#D7DBDF] hover:border-[#C2410C] bg-stone-100 shadow-sm transition-colors"
+              key={img}
+              onClick={() => setActive(i)}
+              type="button"
+            >
+              <img
+                alt={`Fotografía ${i + 1} del taller`}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+                src={asset(`images/galeria/${img}`)}
+              />
+              <span className="absolute bottom-2 left-2 px-2 py-1 bg-[#1B1F24]/85 text-white font-mono-tech text-[10px] uppercase rounded backdrop-blur-sm border border-white/20">
+                FOTO_{String(i + 1).padStart(2, '0')}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+      {lightbox}
     </section>
   )
 }
@@ -725,7 +845,7 @@ function Location({ onContact }) {
         <div className="mb-12">
           <div className="flex items-center gap-2 mb-2">
             <span className="font-mono-tech text-xs text-[#C2410C] font-bold uppercase tracking-wider">
-              [SEC-05 // PLANO_TALLER]
+              [SEC-06 // PLANO_TALLER]
             </span>
             <span className="px-2 py-0.5 bg-[#F2F3F4] border border-[#D7DBDF] text-[#515659] font-mono-tech text-[10px] uppercase rounded font-bold">
               Taller Físico
@@ -766,15 +886,15 @@ function Location({ onContact }) {
                 <span className="font-mono-tech text-xs text-[#7A808A] uppercase tracking-wider block font-bold">
                   Teléfono de Contacto
                 </span>
-                <a
-                  className="inline-flex items-center gap-3 font-display-tech font-bold text-3xl sm:text-4xl text-[#C2410C] hover:text-[#9A3412] transition-colors"
-                  href={BUSINESS.phoneHref}
-                >
+                <div className="inline-flex items-center gap-3 font-display-tech font-bold text-3xl sm:text-4xl text-[#C2410C]">
                   <span className="material-symbols-outlined text-[32px]">
                     call
                   </span>
                   {BUSINESS.phoneDisplay}
-                </a>
+                </div>
+                <p className="font-mono-tech text-[11px] uppercase text-[#7A808A]">
+                  Teléfono de demostración · no operativo
+                </p>
               </div>
             </div>
 
@@ -791,17 +911,15 @@ function Location({ onContact }) {
                 </span>
                 Escribir por WhatsApp
               </button>
-              <a
-                className="inline-flex items-center gap-2 px-5 py-3 bg-[#F2F3F4] hover:bg-[#E9ECEF] text-[#1B1F24] font-mono-tech text-xs uppercase font-semibold tracking-wider rounded border border-[#D7DBDF] transition-all"
-                href={BUSINESS.mapsUrl}
-                rel="noopener noreferrer"
-                target="_blank"
+              <span
+                className="inline-flex items-center gap-2 px-5 py-3 bg-[#F2F3F4] text-[#1B1F24] font-mono-tech text-xs uppercase font-semibold tracking-wider rounded border border-[#D7DBDF] cursor-default"
+                title="Enlace desactivado en esta demostración"
               >
                 <span className="material-symbols-outlined text-[18px] text-[#27548D]">
                   directions
                 </span>
-                Cómo llegar
-              </a>
+                Cómo llegar (demo)
+              </span>
             </div>
           </div>
 
@@ -810,7 +928,9 @@ function Location({ onContact }) {
               <img
                 alt="Exterior del taller en Calle Feria 118, Sevilla"
                 className="w-full h-full min-h-[360px] object-cover brightness-[0.95]"
-                onError={(e) => swapOnError(e, MAP_IMG)}
+                onError={(e) => {
+                  e.currentTarget.style.visibility = 'hidden'
+                }}
                 src={MAP_LOCAL}
               />
               <div className="absolute top-3 left-3 bg-white/95 text-[#1B1F24] font-mono-tech text-[10px] sm:text-[11px] uppercase px-3 py-1.5 rounded border border-[#D7DBDF] backdrop-blur-md shadow-xs flex items-center gap-2">
@@ -819,9 +939,18 @@ function Location({ onContact }) {
               </div>
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div className="bg-[#C2410C] text-white font-mono-tech text-xs uppercase px-3.5 py-1.5 rounded-full shadow-[0_4px_16px_rgba(194,65,12,0.4)] border border-white flex items-center gap-1.5 transform hover:scale-105 transition-transform">
-                  <span className="material-symbols-outlined text-[17px]">
-                    pedal_bike
-                  </span>
+                  <svg
+                    aria-hidden="true"
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle cx="6" cy="18" r="2.5" />
+                    <circle cx="18" cy="18" r="2.5" />
+                    <path d="M6 18L9 13M18 18L15 13M9 13H15M9 13L6 9M15 13L18 9" />
+                  </svg>
                   Taller Recambios 118
                 </div>
               </div>
@@ -1076,7 +1205,9 @@ function ExtraForm() {
                     inputMode="numeric"
                     name="telefono"
                     onChange={handleChange}
+                    pattern="6[0-9]{2} [0-9]{3} [0-9]{3}"
                     placeholder="600 000 000"
+                    title="Formato: 6XX XXX XXX"
                     type="tel"
                     value={form.telefono}
                   />
@@ -1184,12 +1315,12 @@ function Footer({ onNotify }) {
             <p className="font-body text-sm text-stone-200">
               {BUSINESS.address} · {BUSINESS.city}
             </p>
-            <a
-              className="font-mono-tech font-bold text-lg text-[#FF9E7A] hover:text-white transition-colors block"
-              href={BUSINESS.phoneHref}
-            >
+            <span className="font-mono-tech font-bold text-lg text-[#FF9E7A] block">
               {BUSINESS.phoneDisplay}
-            </a>
+            </span>
+            <span className="font-mono-tech text-[10px] uppercase text-stone-500 block">
+              Teléfono de demostración · no operativo
+            </span>
           </div>
           <div className="space-y-2">
             <span className="font-mono-tech text-xs uppercase text-stone-400 block font-bold">
@@ -1210,9 +1341,6 @@ function Footer({ onNotify }) {
 
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 font-mono-tech text-xs text-stone-500 uppercase">
           <p>© 2026 Taller Recambios · Demo de portafolio de CAT CODE</p>
-          <p className="text-stone-500">
-            Personaje de una demo de portafolio de CAT CODE
-          </p>
         </div>
       </div>
     </footer>
@@ -1246,6 +1374,7 @@ export default function App() {
         <About />
         <Services onContact={contact} />
         <Trust />
+        <Gallery />
         <Location onContact={contact} />
         <ExtraForm />
       </main>
