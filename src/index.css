@@ -1,6 +1,93 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,500;0,600;0,700;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 @import 'tailwindcss';
+
+/* Material Symbols Outlined (íconos) — Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+/* Fuentes autohospedadas — sin CDN, sin @import de Google Fonts */
+@font-face {
+  font-family: 'Archivo';
+  src: url('/fonts/archivo-latin-wght-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Archivo';
+  src: url('/fonts/archivo-latin-wght-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Archivo';
+  src: url('/fonts/archivo-latin-wght-normal.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Archivo';
+  src: url('/fonts/archivo-latin-wght-normal.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Archivo';
+  src: url('/fonts/archivo-latin-wght-normal.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Archivo';
+  src: url('/fonts/archivo-latin-wght-normal.woff2') format('woff2');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/fonts/work-sans-latin-wght-normal.woff2') format('woff2');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/fonts/work-sans-latin-wght-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/fonts/work-sans-latin-wght-normal.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/fonts/work-sans-latin-wght-normal.woff2') format('woff2');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/fonts/work-sans-latin-wght-normal.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Work Sans';
+  src: url('/fonts/work-sans-latin-wght-italic.woff2') format('woff2');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
 
 @theme {
   /* Palette — oficial CAT CODE (spec §12) */
@@ -20,8 +107,8 @@
   --color-error: #ba1a1a;
 
   /* Typography — display técnico, mono técnico y body */
-  --font-display-tech: 'Archivo Narrow', sans-serif;
-  --font-mono-tech: 'Space Mono', monospace;
+  --font-display-tech: 'Archivo', sans-serif;
+  --font-mono-tech: 'SFMono-Regular', 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', monospace;
   --font-body: 'Work Sans', sans-serif;
 }
 
