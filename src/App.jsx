@@ -590,51 +590,59 @@ function Services({ onContact }) {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {SERVICES.map((service) => (
-            <div
-              className="group bg-white hover:bg-[#FDECE4]/40 border border-[#D7DBDF] hover:border-[#C2410C] p-6 rounded-lg transition-all duration-200 flex flex-col justify-between shadow-sm relative"
-              key={service.code}
-            >
-              <div className="space-y-4">
-                <div className="flex items-start justify-between gap-2 border-b border-[#D7DBDF] pb-3">
-                  <span className="font-mono-tech text-xs font-semibold text-[#7A808A] group-hover:text-[#C2410C] transition-colors">
-                    {service.code}
-                  </span>
-                  <span className="font-display-tech font-extrabold text-3xl text-[#C2410C] tracking-tight">
-                    {service.price}
-                  </span>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-6">
+          {SERVICES.map((service, index) => {
+            let colClass = ''
+            if (index < 3) {
+              colClass = index === 0 ? 'lg:col-start-1 lg:col-span-2' : index === 1 ? 'lg:col-start-3 lg:col-span-2' : 'lg:col-start-5 lg:col-span-2'
+            } else {
+              colClass = index === 3 ? 'lg:col-start-2 lg:col-span-2' : 'lg:col-start-4 lg:col-span-2'
+            }
+            return (
+              <div
+                className={`group bg-white hover:bg-[#FDECE4]/40 border border-[#D7DBDF] hover:border-[#C2410C] p-6 rounded-lg transition-all duration-200 flex flex-col justify-between shadow-sm relative ${colClass}`}
+                key={service.code}
+              >
+                <div className="space-y-4">
+                  <div className="flex items-start justify-between gap-2 border-b border-[#D7DBDF] pb-3">
+                    <span className="font-mono-tech text-xs font-semibold text-[#7A808A] group-hover:text-[#C2410C] transition-colors">
+                      {service.code}
+                    </span>
+                    <span className="font-display-tech font-extrabold text-3xl text-[#C2410C] tracking-tight">
+                      {service.price}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="font-display-tech font-bold text-xl uppercase text-[#1B1F24] tracking-wide">
+                      {service.name}
+                    </h3>
+                    <p className="font-body text-[#515659] text-sm mt-1">
+                      {service.note}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-display-tech font-bold text-xl uppercase text-[#1B1F24] tracking-wide">
-                    {service.name}
-                  </h3>
-                  <p className="font-body text-[#515659] text-sm mt-1">
-                    {service.note}
-                  </p>
+                <div className="pt-6 mt-6 border-t border-[#D7DBDF] flex items-center justify-between">
+                  <span className="font-mono-tech text-[11px] uppercase text-[#27548D] font-medium flex items-center gap-1.5">
+                    <span className="material-symbols-outlined text-[15px]">
+                      check_circle
+                    </span>
+                    {service.check}
+                  </span>
+                  <button
+                    aria-label={service.aria}
+                    className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#F2F3F4] hover:bg-[#C2410C] text-[#1B1F24] hover:text-white font-mono-tech text-xs uppercase font-semibold rounded border border-[#D7DBDF] hover:border-[#C2410C] transition-all"
+                    onClick={() => onContact(service.msg)}
+                    type="button"
+                  >
+                    <span className="material-symbols-outlined text-[14px]">
+                      chat
+                    </span>
+                    Consultar
+                  </button>
                 </div>
               </div>
-              <div className="pt-6 mt-6 border-t border-[#D7DBDF] flex items-center justify-between">
-                <span className="font-mono-tech text-[11px] uppercase text-[#27548D] font-medium flex items-center gap-1.5">
-                  <span className="material-symbols-outlined text-[15px]">
-                    check_circle
-                  </span>
-                  {service.check}
-                </span>
-                <button
-                  aria-label={service.aria}
-                  className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#F2F3F4] hover:bg-[#C2410C] text-[#1B1F24] hover:text-white font-mono-tech text-xs uppercase font-semibold rounded border border-[#D7DBDF] hover:border-[#C2410C] transition-all"
-                  onClick={() => onContact(service.msg)}
-                  type="button"
-                >
-                  <span className="material-symbols-outlined text-[14px]">
-                    chat
-                  </span>
-                  Consultar
-                </button>
-              </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
